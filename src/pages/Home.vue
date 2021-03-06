@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import db from "src/boot/firebase";
 import { formatDistance } from "date-fns";
 
 export default {
@@ -104,11 +105,11 @@ export default {
     return {
       newPostContent: "",
       posts: [
-        {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
-          date: 1615051570957
-        }
+        // {
+        //   content:
+        //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
+        //   date: 1615051570957
+        // }
       ]
     };
   },
@@ -131,6 +132,25 @@ export default {
     relativeDate(value) {
       return formatDistance(value, new Date());
     }
+  },
+  mounted() {
+    db.collection("posts")
+      .orderBy("date")
+      .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          let postChange = change.doc.data();
+          if (change.type === "added") {
+            console.log("New post: ", postChange);
+            this.posts.unshift(postChange);
+          }
+          if (change.type === "modified") {
+            console.log("Modified post: ", postChange);
+          }
+          if (change.type === "removed") {
+            console.log("Removed post: ", postChange);
+          }
+        });
+      });
   }
 };
 </script>
