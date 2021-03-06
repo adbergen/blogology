@@ -1,84 +1,97 @@
 <template>
-  <q-page>
-    <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
-      <div class="col">
-        <q-input
-          bottom-slots
-          v-model="newPostContent"
-          label="What's Happening?"
-          counter
-          autogrow
-          maxlength="280"
-          class="new-post"
+  <q-page class="relative-position">
+    <q-scroll-area class="absolute fullscreen">
+      <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
+        <div class="col">
+          <q-input
+            bottom-slots
+            v-model="newPostContent"
+            label="What's Happening?"
+            counter
+            autogrow
+            maxlength="280"
+            class="new-post"
+          >
+            <template v-slot:before>
+              <q-avatar size="xl">
+                <img
+                  src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
+                />
+              </q-avatar>
+            </template>
+          </q-input>
+        </div>
+        <div class="col col-shrink">
+          <q-btn
+            @click="addNewPost"
+            class="q-mb-lg"
+            unelevated
+            rounded
+            no-caps
+            :disable="!newPostContent"
+            color="primary"
+            label="Post"
+          />
+        </div>
+      </div>
+      <q-separator class="divider" size="10px" color="grey-2" />
+
+      <q-list separator>
+        <transition-group
+          appear
+          enter-active-class="animated fadeIn slow"
+          leave-active-class="animated fadeOut slow"
         >
-          <template v-slot:before>
-            <q-avatar size="xl">
-              <img
-                src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
-              />
-            </q-avatar>
-          </template>
-        </q-input>
-      </div>
-      <div class="col col-shrink">
-        <q-btn
-          @click="addNewPost"
-          class="q-mb-lg"
-          unelevated
-          rounded
-          no-caps
-          :disable="!newPostContent"
-          color="primary"
-          label="Post"
-        />
-      </div>
-    </div>
-    <q-separator class="divider" size="10px" color="grey-2" />
+          <q-item class="post q-py-md" v-for="post in posts" :key="post.date">
+            <q-item-section avatar top>
+              <q-avatar size="xl">
+                <img
+                  src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
+                />
+              </q-avatar>
+            </q-item-section>
 
-    <q-list separator>
-      <transition-group
-        appear
-        enter-active-class="animated fadeIn slow"
-        leave-active-class="animated fadeOut slow"
-      >
-        <q-item class="post q-py-md" v-for="post in posts" :key="post.date">
-          <q-item-section avatar top>
-            <q-avatar size="xl">
-              <img
-                src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
-              />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label class="text-subtitle1">
-              <strong>Anthony Bergen</strong>
-              <span class="text-grey-7"> @bergenphysique</span>
-            </q-item-label>
-            <q-item-label class="post-content text-body1"
-              >{{ post.content }}
-            </q-item-label>
-            <div class="row justify-between q-mt-sm post-icons">
-              <q-btn flat round color="grey" size="sm" icon="far fa-comment" />
-              <q-btn flat round color="grey" size="sm" icon="fas fa-retweet" />
-              <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
-              <q-btn
-                @click="deletePost(post)"
-                flat
-                round
-                color="grey"
-                size="sm"
-                icon="fas fa-trash"
-              />
-            </div>
-          </q-item-section>
-
-          <q-item-section side top>
-            {{ post.date | relativeDate }}
-          </q-item-section>
-        </q-item>
-      </transition-group>
-    </q-list>
+            <q-item-section>
+              <q-item-label class="text-subtitle1">
+                <strong>Anthony Bergen</strong>
+                <span class="text-grey-7">
+                  @bergenphysique <br class="lt-md" />&bull;
+                  {{ post.date | relativeDate }}
+                </span>
+              </q-item-label>
+              <q-item-label class="post-content text-body1"
+                >{{ post.content }}
+              </q-item-label>
+              <div class="row justify-between q-mt-sm post-icons">
+                <q-btn
+                  flat
+                  round
+                  color="grey"
+                  size="sm"
+                  icon="far fa-comment"
+                />
+                <q-btn
+                  flat
+                  round
+                  color="grey"
+                  size="sm"
+                  icon="fas fa-retweet"
+                />
+                <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
+                <q-btn
+                  @click="deletePost(post)"
+                  flat
+                  round
+                  color="grey"
+                  size="sm"
+                  icon="fas fa-trash"
+                />
+              </div>
+            </q-item-section>
+          </q-item>
+        </transition-group>
+      </q-list>
+    </q-scroll-area>
   </q-page>
 </template>
 
