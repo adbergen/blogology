@@ -77,7 +77,14 @@
                   size="sm"
                   icon="fas fa-retweet"
                 />
-                <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
+                <q-btn
+                  @click="toggleLiked(post)"
+                  :color="post.liked ? 'pink' : 'grey'"
+                  :icon="post.liked ? 'fas fa-heart' : 'far fa-heart'"
+                  size="sm"
+                  flat
+                  round
+                />
                 <q-btn
                   @click="deletePost(post)"
                   flat
@@ -106,9 +113,18 @@ export default {
       newPostContent: "",
       posts: [
         // {
+        //   id: "ID1",
         //   content:
         //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
-        //   date: 1615051570957
+        //   date: 1615051570957,
+        //   liked: false
+        // },
+        // {
+        //   id: "ID2",
+        //   content:
+        //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
+        //   date: 1615051570957,
+        //   liked: true
         // }
       ]
     };
@@ -117,7 +133,8 @@ export default {
     addNewPost() {
       let newPost = {
         content: this.newPostContent,
-        date: Date.now()
+        date: Date.now(),
+        liked: false
       };
       // this.posts.unshift(newPost);
       // Add a new document with a generated id.
@@ -141,6 +158,20 @@ export default {
         .catch(error => {
           console.error("Error removing document: ", error);
         });
+    },
+    toggleLiked(post) {
+      db.collection("posts")
+        .doc(post.id)
+        .update({
+          liked: !post.liked
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch(error => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
     }
   },
   filters: {
@@ -161,6 +192,8 @@ export default {
           }
           if (change.type === "modified") {
             console.log("Modified post: ", postChange);
+            let index = this.posts.findIndex(post => post.id === postChange.id);
+            Object.assign(this.posts[index], postChange);
           }
           if (change.type === "removed") {
             console.log("Removed post: ", postChange);
