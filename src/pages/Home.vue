@@ -42,7 +42,7 @@
           enter-active-class="animated fadeIn slow"
           leave-active-class="animated fadeOut slow"
         >
-          <q-item class="post q-py-md" v-for="post in posts" :key="post.date">
+          <q-item class="post q-py-md" v-for="post in posts" :key="post.id">
             <q-item-section avatar top>
               <q-avatar size="xl">
                 <img
@@ -132,9 +132,15 @@ export default {
       this.newPostContent = "";
     },
     deletePost(post) {
-      let dateToDelete = post.date;
-      let index = this.posts.findIndex(post => post.date === dateToDelete);
-      this.posts.splice(index, 1);
+      db.collection("posts")
+        .doc(post.id)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted!");
+        })
+        .catch(error => {
+          console.error("Error removing document: ", error);
+        });
     }
   },
   filters: {
@@ -148,6 +154,7 @@ export default {
       .onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           let postChange = change.doc.data();
+          postChange.id = change.doc.id;
           if (change.type === "added") {
             console.log("New post: ", postChange);
             this.posts.unshift(postChange);
@@ -157,6 +164,8 @@ export default {
           }
           if (change.type === "removed") {
             console.log("Removed post: ", postChange);
+            let index = this.posts.findIndex(post => post.id === postChange.id);
+            this.posts.splice(index, 1);
           }
         });
       });
