@@ -57,7 +57,14 @@
             <q-btn flat round color="grey" size="sm" icon="far fa-comment" />
             <q-btn flat round color="grey" size="sm" icon="fas fa-retweet" />
             <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
-            <q-btn flat round color="grey" size="sm" icon="fas fa-trash" />
+            <q-btn
+              @click="deletePost(post)"
+              flat
+              round
+              color="grey"
+              size="sm"
+              icon="fas fa-trash"
+            />
           </div>
         </q-item-section>
 
@@ -93,6 +100,11 @@ export default {
         date: Date.now()
       };
       this.posts.unshift(newPost);
+    },
+    deletePost(post) {
+      let dateToDelete = post.date;
+      let index = this.posts.findIndex(post => post.date === dateToDelete);
+      this.posts.splice(index, 1);
     }
   },
   filters: {
