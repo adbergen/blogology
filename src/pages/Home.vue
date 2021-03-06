@@ -119,7 +119,16 @@ export default {
         content: this.newPostContent,
         date: Date.now()
       };
-      this.posts.unshift(newPost);
+      // this.posts.unshift(newPost);
+      // Add a new document with a generated id.
+      db.collection("posts")
+        .add(newPost)
+        .then(docRef => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(error => {
+          console.error("Error adding document: ", error);
+        });
       this.newPostContent = "";
     },
     deletePost(post) {
