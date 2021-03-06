@@ -4,7 +4,7 @@
       <div class="col">
         <q-input
           bottom-slots
-          v-model="newPost"
+          v-model="newPostContent"
           label="What's Happening?"
           counter
           autogrow
@@ -22,13 +22,14 @@
       </div>
       <div class="col col-shrink">
         <q-btn
+          @click="addNewPost"
           class="q-mb-lg"
           unelevated
           rounded
           no-caps
-          :disable="!newPost"
+          :disable="!newPostContent"
           color="primary"
-          label="Publicize"
+          label="Post"
         />
       </div>
     </div>
@@ -75,13 +76,8 @@ export default {
   name: "PageIndex",
   data() {
     return {
-      newPost: "",
+      newPostContent: "",
       posts: [
-        {
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
-          date: 1615051570957
-        },
         {
           content:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
@@ -89,6 +85,15 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    addNewPost() {
+      let newPost = {
+        content: this.newPostContent,
+        date: Date.now()
+      };
+      this.posts.unshift(newPost);
+    }
   },
   filters: {
     relativeDate(value) {
