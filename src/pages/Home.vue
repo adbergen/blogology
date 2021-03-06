@@ -33,8 +33,9 @@
       </div>
     </div>
     <q-separator class="divider" size="10px" color="grey-2" />
-    <q-list>
-      <q-item class="q-py-md">
+
+    <q-list separator>
+      <q-item class="q-py-md" v-for="post in posts" :key="post.date">
         <q-item-section avatar top>
           <q-avatar size="xl">
             <img
@@ -49,10 +50,7 @@
             <span class="text-grey-7"> @bergenphysique</span>
           </q-item-label>
           <q-item-label class="post-content text-body1"
-            >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea
-            distinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,
-            id earum pariatur. Eum aliquid autem modi architecto in labore
-            dignissimos id quod? Incidunt!
+            >{{ post.content }}
           </q-item-label>
           <div class="row justify-between q-mt-sm post-icons">
             <q-btn flat round color="grey" size="sm" icon="far fa-comment" />
@@ -63,7 +61,7 @@
         </q-item-section>
 
         <q-item-section side top>
-          1 min ago
+          {{ post.date | relativeDate }}
         </q-item-section>
       </q-item>
     </q-list>
@@ -71,12 +69,31 @@
 </template>
 
 <script>
+import { formatDistance } from "date-fns";
+
 export default {
   name: "PageIndex",
   data() {
     return {
-      newPost: ""
+      newPost: "",
+      posts: [
+        {
+          content:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
+          date: 1615051570957
+        },
+        {
+          content:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
+          date: 1615051570957
+        }
+      ]
     };
+  },
+  filters: {
+    relativeDate(value) {
+      return formatDistance(value, new Date());
+    }
   }
 };
 </script>
