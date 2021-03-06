@@ -79,11 +79,11 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 ## Technologies
 
 <ul>
-<li>Quasar, HTML, CSS, Material Design, Font Awesome</li>
-<li>Animate.css, date-fns, gravatar, </li>
-<li>Javascript, jQuery</li>
+<li>Quasar, HTML, CSS</li>
+<li>Animate.css, date-fns, gravatar, Material Design, Font Awesome </li>
+<li>JavaScript, jQuery</li>
 <li>Firebase</li>
-<li>Vue.js, Node.js, Express</li>
+<li>Vue.js, Node.js, Express.js</li>
 <li>GitHub</li>
 </ul>
 
