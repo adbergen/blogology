@@ -36,42 +36,48 @@
     <q-separator class="divider" size="10px" color="grey-2" />
 
     <q-list separator>
-      <q-item class="q-py-md" v-for="post in posts" :key="post.date">
-        <q-item-section avatar top>
-          <q-avatar size="xl">
-            <img
-              src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
-            />
-          </q-avatar>
-        </q-item-section>
+      <transition-group
+        appear
+        enter-active-class="animated fadeIn slow"
+        leave-active-class="animated fadeOut slow"
+      >
+        <q-item class="post q-py-md" v-for="post in posts" :key="post.date">
+          <q-item-section avatar top>
+            <q-avatar size="xl">
+              <img
+                src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
+              />
+            </q-avatar>
+          </q-item-section>
 
-        <q-item-section>
-          <q-item-label class="text-subtitle1">
-            <strong>Anthony Bergen</strong>
-            <span class="text-grey-7"> @bergenphysique</span>
-          </q-item-label>
-          <q-item-label class="post-content text-body1"
-            >{{ post.content }}
-          </q-item-label>
-          <div class="row justify-between q-mt-sm post-icons">
-            <q-btn flat round color="grey" size="sm" icon="far fa-comment" />
-            <q-btn flat round color="grey" size="sm" icon="fas fa-retweet" />
-            <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
-            <q-btn
-              @click="deletePost(post)"
-              flat
-              round
-              color="grey"
-              size="sm"
-              icon="fas fa-trash"
-            />
-          </div>
-        </q-item-section>
+          <q-item-section>
+            <q-item-label class="text-subtitle1">
+              <strong>Anthony Bergen</strong>
+              <span class="text-grey-7"> @bergenphysique</span>
+            </q-item-label>
+            <q-item-label class="post-content text-body1"
+              >{{ post.content }}
+            </q-item-label>
+            <div class="row justify-between q-mt-sm post-icons">
+              <q-btn flat round color="grey" size="sm" icon="far fa-comment" />
+              <q-btn flat round color="grey" size="sm" icon="fas fa-retweet" />
+              <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
+              <q-btn
+                @click="deletePost(post)"
+                flat
+                round
+                color="grey"
+                size="sm"
+                icon="fas fa-trash"
+              />
+            </div>
+          </q-item-section>
 
-        <q-item-section side top>
-          {{ post.date | relativeDate }}
-        </q-item-section>
-      </q-item>
+          <q-item-section side top>
+            {{ post.date | relativeDate }}
+          </q-item-section>
+        </q-item>
+      </transition-group>
     </q-list>
   </q-page>
 </template>
@@ -125,6 +131,8 @@ export default {
   border-top: 1px solid
   border-bottom: 1px solid
   border-color: $grey-4
+.post:not(:first-child)
+  border-top: 1px solid rgba(0, 0, 0, 0.12)
 .post-content
   white-space: pre-line
 .post-icons
