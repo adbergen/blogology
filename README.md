@@ -25,7 +25,7 @@ This is a vue.js quasar blogging application.</p>
   </h4>
 </div>
 
-![Screenshot of application demo](public/demo.png)
+![Screenshot of application demo](src/assets/demo.png)
 
 <hr>
 
