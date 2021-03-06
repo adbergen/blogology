@@ -5,7 +5,13 @@
         <q-btn dense flat round icon="menu" @click="left = !left" />
 
         <q-toolbar-title class="text-weight-bold">
-          Blogology
+          <span class="gt-sm"> Blogology </span>
+          <q-icon
+            class="q-pa-md lt-md header-icon"
+            name="fas fa-dna"
+            size="sm"
+            color="primary"
+          />
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -115,3 +121,11 @@ export default {
   }
 };
 </script>
+
+<style lang="sass">
+.header-icon
+  postion: absolute
+  bottom: 0
+  left: 50%
+  transform: translateX(-50%)
+</style>
