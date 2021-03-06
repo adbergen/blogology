@@ -100,6 +100,7 @@ export default {
         date: Date.now()
       };
       this.posts.unshift(newPost);
+      this.newPostContent = "";
     },
     deletePost(post) {
       let dateToDelete = post.date;
