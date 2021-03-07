@@ -12,7 +12,7 @@ Blogology
 <br>
 </div>
 <p align="center"><font size="3">
-This is a vue.js quasar blogging application.</p>
+This is a vue.js quasar blogging application deployed to Mac, Windows, IOS, and Android.</p>
 <div align="center"><a name="menu"></a>
   <h4>
     <a href="https://github.com/adbergen/blogology">
@@ -84,7 +84,7 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 <li>JavaScript, jQuery</li>
 <li>Firebase</li>
 <li>Vue.js, Node.js, Express.js</li>
-<li>GitHub</li>
+<li>GitHub, Cordova, Electron</li>
 </ul>
 
 <hr>
