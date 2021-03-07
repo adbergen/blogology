@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   props: ["tab"],
   data() {
@@ -40,8 +41,41 @@ export default {
     submitForm() {
       if (this.tab == "login") {
         console.log("login the user");
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(
+            this.formData.email,
+            this.formData.password
+          )
+          .then(userCredential => {
+            // Signed in
+            var user = userCredential.user;
+            console.log(user);
+            // ...
+          })
+          .catch(error => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+          });
       } else {
         console.log("register the user");
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(
+            this.formData.email,
+            this.formData.password
+          )
+          .then(userCredential => {
+            // Signed in
+            var user = userCredential.user;
+            console.log(user);
+            // ...
+          })
+          .catch(error => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+          });
       }
     }
   }
