@@ -53,7 +53,7 @@ export default {
             var user = userCredential.user;
             console.log(userCredential);
             // ...
-            this.$router.push("/");
+            this.$router.push("/home");
           })
           .catch(error => {
             var errorCode = error.code;
@@ -72,7 +72,7 @@ export default {
             var user = userCredential.user;
             console.log(userCredential);
             // ...
-            this.$router.push("/");
+            this.$router.push("/home");
           })
           .catch(error => {
             var errorCode = error.code;

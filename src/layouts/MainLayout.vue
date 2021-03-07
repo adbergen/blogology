@@ -20,7 +20,7 @@
       <q-icon class="q-pa-md" name="fas fa-dna" size="lg" color="primary" />
 
       <q-list>
-        <q-item to="/" clickable v-ripple exact>
+        <q-item to="/home" clickable v-ripple exact>
           <q-item-section avatar>
             <q-icon name="home" size="md" />
           </q-item-section>
@@ -36,7 +36,7 @@
             >About</q-item-section
           >
         </q-item>
-        <q-item to="/login" clickable v-ripple exact>
+        <q-item to="/" clickable v-ripple exact>
           <q-item-section avatar>
             <q-icon name="login" size="md" />
           </q-item-section>
