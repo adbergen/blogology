@@ -50,7 +50,7 @@ export default {
           .then(userCredential => {
             // Signed in
             var user = userCredential.user;
-            console.log(user);
+            console.log(userCredential);
             // ...
           })
           .catch(error => {
@@ -68,7 +68,7 @@ export default {
           .then(userCredential => {
             // Signed in
             var user = userCredential.user;
-            console.log(user);
+            console.log(userCredential);
             // ...
           })
           .catch(error => {

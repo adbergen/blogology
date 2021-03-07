@@ -36,6 +36,15 @@
             >About</q-item-section
           >
         </q-item>
+        <q-item to="/login" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="psychology" size="md" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold"
+            >Login</q-item-section
+          >
+        </q-item>
       </q-list>
     </q-drawer>
 
