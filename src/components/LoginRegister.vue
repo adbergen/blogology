@@ -47,11 +47,13 @@ export default {
             this.formData.email,
             this.formData.password
           )
+
           .then(userCredential => {
             // Signed in
             var user = userCredential.user;
             console.log(userCredential);
             // ...
+            this.$router.push("/");
           })
           .catch(error => {
             var errorCode = error.code;
@@ -70,6 +72,7 @@ export default {
             var user = userCredential.user;
             console.log(userCredential);
             // ...
+            this.$router.push("/");
           })
           .catch(error => {
             var errorCode = error.code;
