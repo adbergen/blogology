@@ -19,8 +19,8 @@ This is a vue.js quasar blogging application deployed to Mac, Windows, IOS, and 
       Github Repository
     </a>
 <span> | </span>
-<a href="https://adbergen.github.io/blogology/">
-      Github Pages
+<a href="https://dev.dv0dyeamp373t.amplifyapp.com">
+      AWS Amplify
     </a>
   </h4>
 </div>
@@ -84,7 +84,7 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 <li>JavaScript, jQuery</li>
 <li>Firebase</li>
 <li>Vue.js, Node.js, Express.js</li>
-<li>GitHub, Cordova, Electron</li>
+<li>AWS Amplify, GitHub, Cordova, Electron</li>
 </ul>
 
 <hr>
