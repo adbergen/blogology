@@ -13,6 +13,7 @@
             color="primary"
           />
         </q-toolbar-title>
+        <q-btn @click="logout" color="primary" label="logout" />
       </q-toolbar>
     </q-header>
 
@@ -123,12 +124,22 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   data() {
     return {
       left: false,
-      right: false
+      right: false,
+      isLoggedIn: false,
+      currentUser: false
     };
+  },
+  methods: {
+    logout: function() {
+      firebase.auth().signOut().then(() => {
+        this.$router.push("/");
+      });
+    }
   }
 };
 </script>

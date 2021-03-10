@@ -1,30 +1,80 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
+import firebase from "firebase";
 
-import routes from './routes'
+Vue.use(Router);
 
-Vue.use(VueRouter)
+let router = new Router({
+  routes: [
+    {
+      path: "/",
+      component: () => import("layouts/MainLayout.vue"),
+      children: [
+        {
+          path: "/",
+          component: () => import("src/pages/Login.vue"),
+          name: "Login",
+          meta: {
+            requiresGuest: true
+          }
+        },
+        {
+          path: "/home",
+          component: () => import("src/pages/Home.vue"),
+          name: "Home",
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: "/about",
+          component: () => import("src/pages/About.vue"),
+          name: "About"
+        }
+      ]
+    },
+    {
+      path: "*",
+      component: () => import("pages/Error404.vue")
+    }
+  ]
+});
 
-/*
- * If not building with SSR mode, you can
- * directly export the Router instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Router instance.
- */
+// Nav Guard
+router.beforeEach((to, from, next) => {
+  // Check for requiresAuth guard
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Check if NO logged user
+    if (!firebase.auth().currentUser) {
+      // Go to login
+      next({
+        path: "/",
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      // Proceed to route
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    // Check if NO logged user
+    if (firebase.auth().currentUser) {
+      // Go to login
+      next({
+        path: "/home",
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      // Proceed to route
+      next();
+    }
+  } else {
+    // Proceed to route
+    next();
+  }
+});
 
-export default function (/* { store, ssrContext } */) {
-  const Router = new VueRouter({
-    scrollBehavior: () => ({ x: 0, y: 0 }),
-    routes,
-
-    // Leave these as they are and change in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE
-  })
-
-  return Router
-}
+export default router;
