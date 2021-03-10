@@ -70,6 +70,7 @@ export default {
           .then(userCredential => {
             // Signed in
             var user = userCredential.user;
+            alert(`Account created for ${user.email}`)
             console.log(userCredential);
             // ...
             this.$router.push("/home");
@@ -77,6 +78,7 @@ export default {
           .catch(error => {
             var errorCode = error.code;
             var errorMessage = error.message;
+            alert(error.message);
             // ..
           });
       }
