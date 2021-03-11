@@ -15,7 +15,7 @@
             "hosting": {
                 "amplifyhosting": {
                     "appId": "dv0dyeamp373t",
-                    "type": "manual"
+                    "type": "cicd"
                 }
             }
         }

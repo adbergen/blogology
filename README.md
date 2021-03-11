@@ -19,7 +19,7 @@ This is a vue.js quasar blogging application deployed to Mac, Windows, IOS, and 
       Github Repository
     </a>
 <span> | </span>
-<a href="https://dev.dv0dyeamp373t.amplifyapp.com">
+<a href="https://master.dv0dyeamp373t.amplifyapp.com/">
       AWS Amplify
     </a>
   </h4>
