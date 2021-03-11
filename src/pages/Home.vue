@@ -71,9 +71,10 @@
                   icon="far fa-comment"
                 />
                 <q-btn
+                @click="toggleReposted(post)"
                   flat
                   round
-                  color="grey"
+                  :color="post.reposted ? 'green' : 'grey'"
                   size="sm"
                   icon="fas fa-retweet"
                 />
@@ -134,7 +135,8 @@ export default {
       let newPost = {
         content: this.newPostContent,
         date: Date.now(),
-        liked: false
+        liked: false,
+        reposted: false,
       };
       // this.posts.unshift(newPost);
       // Add a new document with a generated id.
@@ -164,6 +166,20 @@ export default {
         .doc(post.id)
         .update({
           liked: !post.liked
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch(error => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+    },
+    toggleReposted(post) {
+      db.collection("posts")
+        .doc(post.id)
+        .update({
+          reposted: !post.reposted
         })
         .then(() => {
           console.log("Document successfully updated!");
