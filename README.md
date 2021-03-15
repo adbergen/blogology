@@ -80,7 +80,7 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 
 <ul>
 <li>Quasar, HTML, CSS, Sass</li>
-<li>Animate.css, date-fns, gravatar, Material Design, Font Awesome </li>
+<li>Animate.css, date-fns, Gravatar, Material Design, Font Awesome, dotenv </li>
 <li>JavaScript, jQuery</li>
 <li>Firebase, News API</li>
 <li>Vue.js, Node.js, Express.js</li>
