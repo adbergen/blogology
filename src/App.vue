@@ -5,6 +5,7 @@
 </template>
 <script>
 import firebase from "firebase";
+
 export default {
   methods: {
     handleAuthStateChanged() {
@@ -24,6 +25,7 @@ export default {
     mounted() {
       this.handleAuthStateChanged();
     }
-  }
+  },
+  
 };
 </script>
