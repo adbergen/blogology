@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-form @submit.prevent="fetchSearchNews">
       <q-input
-        placeholder="Search Blogology"
+        placeholder="Search News"
         class="q-ma-md"
         outlined
         rounded
