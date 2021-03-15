@@ -64,8 +64,6 @@
 <script>
 import firebase from "firebase";
 import News from "../components/News"
-require('dotenv').config
-console.log("HERE IT IS", process.env.VUE_APP_APIKEY)
 export default {
   data() {
     return {

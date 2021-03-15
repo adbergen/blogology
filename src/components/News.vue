@@ -50,7 +50,6 @@
 </template>
 
 <script>
-require('dotenv').config
 export default {
   props: ["apiKey"],
   data: () => {
