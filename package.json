@@ -1,19 +1,24 @@
 {
   "name": "blogology",
   "version": "0.0.1",
-  "description": "A multiplatform  blog application",
+  "description": "A multiplatform blog application",
   "productName": "Blogology",
   "author": "Anthony Bergen",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.vue ./",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --dest build",
+    "lint": "vue-cli-service lint",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "body-parser": "^1.19.0",
     "cordova": "^10.0.0",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
     "date-fns": "^2.19.0",
+    "express": "^4.17.1",
     "firebase": "^8.2.10",
     "quasar": "^1.0.0"
   },
