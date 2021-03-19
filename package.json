@@ -6,7 +6,6 @@
   "author": "Anthony Bergen",
   "private": true,
   "scripts": {
-    "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=master",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
