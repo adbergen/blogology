@@ -109,7 +109,8 @@ export default {
       this.fetchData();
     },
     fetchData() {
-      let req = new Request(this.apiUrl + "&page=" + this.currentPage);
+      let req = this.$axios
+      .get(this.apiUrl + "&page=" + this.currentPage);
       fetch(req)
         .then(resp => resp.json())
         .then(data => {
