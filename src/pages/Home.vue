@@ -71,7 +71,7 @@
                   icon="far fa-comment"
                 />
                 <q-btn
-                @click="toggleReposted(post)"
+                  @click="toggleReposted(post)"
                   flat
                   round
                   :color="post.reposted ? 'green' : 'grey'"
@@ -127,7 +127,7 @@ export default {
         //   date: 1615051570957,
         //   liked: true
         // }
-      ]
+      ],
     };
   },
   methods: {
@@ -142,10 +142,10 @@ export default {
       // Add a new document with a generated id.
       db.collection("posts")
         .add(newPost)
-        .then(docRef => {
+        .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error adding document: ", error);
         });
       this.newPostContent = "";
@@ -157,7 +157,7 @@ export default {
         .then(() => {
           console.log("Document successfully deleted!");
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error removing document: ", error);
         });
     },
@@ -165,12 +165,12 @@ export default {
       db.collection("posts")
         .doc(post.id)
         .update({
-          liked: !post.liked
+          liked: !post.liked,
         })
         .then(() => {
           console.log("Document successfully updated!");
         })
-        .catch(error => {
+        .catch((error) => {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
@@ -179,27 +179,27 @@ export default {
       db.collection("posts")
         .doc(post.id)
         .update({
-          reposted: !post.reposted
+          reposted: !post.reposted,
         })
         .then(() => {
           console.log("Document successfully updated!");
         })
-        .catch(error => {
+        .catch((error) => {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
-    }
+    },
   },
   filters: {
     relativeDate(value) {
       return formatDistance(value, new Date());
-    }
+    },
   },
   mounted() {
     db.collection("posts")
       .orderBy("date")
-      .onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
           let postChange = change.doc.data();
           postChange.id = change.doc.id;
           if (change.type === "added") {
@@ -208,17 +208,21 @@ export default {
           }
           if (change.type === "modified") {
             console.log("Modified post: ", postChange);
-            let index = this.posts.findIndex(post => post.id === postChange.id);
+            let index = this.posts.findIndex(
+              (post) => post.id === postChange.id
+            );
             Object.assign(this.posts[index], postChange);
           }
           if (change.type === "removed") {
             console.log("Removed post: ", postChange);
-            let index = this.posts.findIndex(post => post.id === postChange.id);
+            let index = this.posts.findIndex(
+              (post) => post.id === postChange.id
+            );
             this.posts.splice(index, 1);
           }
         });
       });
-  }
+  },
 };
 </script>
 
