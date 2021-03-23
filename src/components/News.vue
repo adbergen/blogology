@@ -62,13 +62,13 @@ export default {
       maxPerPage: 20,
       searchword: "",
       articles: [],
-      country: "us"
+      country: "us",
     };
   },
   computed: {
     pageCount() {
       return Math.ceil(this.totalResults / this.maxPerPage);
-    }
+    },
   },
   methods: {
     navTo(url) {
@@ -109,25 +109,36 @@ export default {
       this.fetchData();
     },
     fetchData() {
-      let req = this.$axios
-      .get(this.apiUrl + "&page=" + this.currentPage);
-      fetch(req)
-        .then(resp => resp.json())
-        .then(data => {
-          this.totalResults = data.totalResults;
-          data.articles.forEach(element => {
-            this.articles.push(element);
-          });
-          this.isBusy = false;
-          this.showloader = false;
+      this.$axios
+        .get(this.apiUrl + "&page=" + this.currentPage)
+        .then((response) => {
+          this.articles = response.data.articles;
+          console.log(this.articles);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
+    // fetchData() {
+    //   let req = this.$axios
+    //   .get(this.apiUrl + "&page=" + this.currentPage);
+    //   fetch(req)
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //       this.totalResults = data.totalResults;
+    //       data.articles.forEach(element => {
+    //         this.articles.push(element);
+    //       });
+    //       this.isBusy = false;
+    //       this.showloader = false;
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // },
     scrollTrigger() {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
           if (
             entry.intersectionRatio > 0 &&
             this.currentPage < this.pageCount
@@ -139,19 +150,19 @@ export default {
         });
       });
       observer.observe(this.$refs.infinitescrolltrigger);
-    }
+    },
   },
   created() {
     this.fetchTopNews();
   },
   mounted() {
     this.scrollTrigger();
-  }
+  },
 };
 </script>
 
 <style lang="sass">
 img
-    max-width: 100%
-    height: auto
+  max-width: 100%
+  height: auto
 </style>
