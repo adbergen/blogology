@@ -13,7 +13,6 @@
             color="primary"
           />
         </q-toolbar-title>
-        <q-btn @click="logout" color="primary" label="logout" />
       </q-toolbar>
     </q-header>
 
@@ -47,10 +46,50 @@
           >
         </q-item>
       </q-list>
+
+      <div class="q-pa-md absolute-bottom">
+        <q-btn>
+          <q-avatar class="absolute-left q-mt-xs q-ml-xs" size="xl">
+            <img
+              src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
+            />
+          </q-avatar>
+          <strong>Anthony Bergen</strong>
+          <span> @bergenphysique <br class="lt-md" /></span>
+          <q-menu>
+            <div class="row no-wrap q-pa-md">
+              <div class="column">
+                <div class="text-h6 q-mb-md">Settings</div>
+                <q-toggle v-model="mobileData" label="Use Mobile Data" />
+                <q-toggle v-model="bluetooth" label="Bluetooth" />
+              </div>
+
+              <q-separator vertical inset class="q-mx-lg" />
+
+              <div class="column items-center">
+                <q-avatar size="72px">
+                  <img
+                    src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
+                  />
+                </q-avatar>
+                <div class="text-subtitle1 q-mt-md q-mb-xs">Anthony Bergen</div>
+                <q-btn
+                  color="primary"
+                  label="Logout"
+                  push
+                  size="sm"
+                  @click="logout"
+                  v-close-popup
+                />
+              </div>
+            </div>
+          </q-menu>
+        </q-btn>
+      </div>
     </q-drawer>
 
     <q-drawer show-if-above v-model="right" side="right" bordered>
-       <News :apiKey="apiKey" />
+      <News :apiKey="apiKey" />
     </q-drawer>
 
     <q-page-container>
@@ -63,7 +102,7 @@
 
 <script>
 import firebase from "firebase";
-import News from "../components/News"
+import News from "../components/News";
 export default {
   data() {
     return {
@@ -71,19 +110,24 @@ export default {
       right: false,
       isLoggedIn: false,
       currentUser: false,
-      apiKey: process.env.VUE_APP_APIKEY
+      apiKey: process.env.VUE_APP_APIKEY,
+      mobileData: true,
+      bluetooth: false,
     };
   },
   methods: {
-    logout: function() {
-      firebase.auth().signOut().then(() => {
-        this.$router.push("/");
-      });
-    }
+    logout: function () {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push("/");
+        });
+    },
   },
   components: {
-    News
-  }
+    News,
+  },
 };
 </script>
 

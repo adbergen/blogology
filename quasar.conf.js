@@ -103,7 +103,7 @@ module.exports = function(/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: true
+      pwa: false
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
