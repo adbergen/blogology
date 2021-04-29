@@ -60,7 +60,7 @@
             <div class="row no-wrap q-pa-md">
               <div class="column">
                 <div class="text-h6 q-mb-md">Settings</div>
-                <q-toggle v-model="mobileData" label="Use Mobile Data" />
+                <q-toggle v-model="mobileData" label="Dark Mode" />
                 <q-toggle v-model="bluetooth" label="Bluetooth" />
               </div>
 
@@ -73,6 +73,15 @@
                   />
                 </q-avatar>
                 <div class="text-subtitle1 q-mt-md q-mb-xs">Anthony Bergen</div>
+                <q-btn class="q-mb-xs"
+                  color="primary"
+                  label="Edit Profile"
+                  push
+                  size="sm"
+                  @click="editProfile"
+                  v-close-popup
+                />
+                <q-break />
                 <q-btn
                   color="primary"
                   label="Logout"
@@ -124,6 +133,9 @@ export default {
           this.$router.push("/");
         });
     },
+    editProfile: function () {
+     this.$router.push("edit-profile")
+    }
   },
   components: {
     News,

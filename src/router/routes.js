@@ -24,6 +24,14 @@ const routes = [
               }
           },
           {
+            path: '/edit-profile',
+            name: 'Edit Profile',
+            component: () => import('pages/EditProfile.vue'),
+            meta: {
+                requiresAuth: true
+              }
+          },
+          {
             path: '/about',
             name: 'About',
             component: () => import('pages/About.vue')
