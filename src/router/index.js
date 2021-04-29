@@ -1,80 +1,60 @@
-import Vue from "vue";
-import Router from "vue-router";
-import firebase from "firebase";
+import firebaseServices from '../services/firebase'
+import { Notify } from 'quasar'
+import { store } from '../store'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(Router);
+import routes from './routes'
 
-let router = new Router({
-  routes: [
-    {
-      path: "/",
-      component: () => import("layouts/MainLayout.vue"),
-      children: [
-        {
-          path: "/",
-          component: () => import("src/pages/Login.vue"),
-          name: "Login",
-          meta: {
-            requiresGuest: true
-          }
-        },
-        {
-          path: "/home",
-          component: () => import("src/pages/Home.vue"),
-          name: "Home",
-          meta: {
-            requiresAuth: true
-          }
-        },
-        {
-          path: "/about",
-          component: () => import("src/pages/About.vue"),
-          name: "About"
+Vue.use(VueRouter)
+
+/*
+ * If not building with SSR mode, you can
+ * directly export the Router instantiation
+ */
+
+export default function (/* { store, ssrContext } */) {
+  const Router = new VueRouter({
+    scrollBehavior: () => ({ x: 0, y: 0 }),
+    routes,
+
+    // Leave these as is and change from quasar.conf.js instead!
+    // quasar.conf.js -> build -> vueRouterMode
+    // quasar.conf.js -> build -> publicPath
+    mode: process.env.VUE_ROUTER_MODE,
+    base: process.env.VUE_ROUTER_BASE
+  })
+
+  // Setup the router to be intercepted on each route.
+  // This allows the application to halt rendering until
+  // Firebase is finished with its initialization process,
+  // and handle the user accordingly
+  Router.beforeEach(async (to, from, next) => {
+    const { ensureAuthIsInitialized, isAuthenticated } = firebaseServices
+    try {
+      // Force the app to wait until Firebase has
+      // finished its initialization, and handle the
+      // authentication state of the user properly
+      await ensureAuthIsInitialized(store)
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (isAuthenticated(store)) {
+          next()
+        } else {
+          next('/auth/login')
         }
-      ]
-    },
-    {
-      path: "*",
-      component: () => import("pages/Error404.vue")
+      } else if ((to.path === '/auth/register' && isAuthenticated(store)) ||
+        (to.path === '/auth/login' && isAuthenticated(store))) {
+        next('/user')
+      } else {
+        next()
+      }
+    } catch (err) {
+      Notify.create({
+        message: `${err}`,
+        color: 'negative'
+      })
     }
-  ]
-});
+  })
 
-// Nav Guard
-router.beforeEach((to, from, next) => {
-  // Check for requiresAuth guard
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // Check if NO logged user
-    if (!firebase.auth().currentUser) {
-      // Go to login
-      next({
-        path: "/",
-        query: {
-          redirect: to.fullPath
-        }
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
-  } else if (to.matched.some(record => record.meta.requiresGuest)) {
-    // Check if NO logged user
-    if (firebase.auth().currentUser) {
-      // Go to login
-      next({
-        path: "/home",
-        query: {
-          redirect: to.fullPath
-        }
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
-  } else {
-    // Proceed to route
-    next();
-  }
-});
-
-export default router;
+  return Router
+}

@@ -6,19 +6,18 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
-
-module.exports = function (/* ctx */) {
+const enviromentConfiguration = require('./src/utils/environmentConfig.js')
+module.exports = function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
-
     // https://quasar.dev/quasar-cli/prefetch-feature
     // preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
-    boot: ["firebase", "axios"],
+    boot: ["firebaseConnection", "axios"],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ["app.sass"],
@@ -65,7 +64,10 @@ module.exports = function (/* ctx */) {
           loader: "eslint-loader",
           exclude: /node_modules/
         });
-      }
+      },
+      env: {
+        QENV: enviromentConfiguration(process.env.QENV)
+      },
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -103,7 +105,7 @@ module.exports = function (/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: true
+      pwa: false
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa

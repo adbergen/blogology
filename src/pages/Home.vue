@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import db from "src/boot/firebase";
+import db from "src/services/firebase/database";
 import { formatDistance } from "date-fns";
 
 export default {
