@@ -31,9 +31,9 @@ export default {
   data() {
     return {
       formData: {
-        name: "",
-        email: "",
-        password: ""
+        name: null,
+        email: null,
+        password: null,
       }
     };
   },

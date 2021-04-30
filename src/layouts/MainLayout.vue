@@ -55,7 +55,7 @@
             />
           </q-avatar>
           <strong>Anthony Bergen</strong>
-          <span> @bergenphysique <br class="lt-md" /></span>
+          <span> {{ email }} <br class="lt-md" /></span>
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column">
@@ -122,6 +122,7 @@ export default {
       apiKey: process.env.VUE_APP_APIKEY,
       mobileData: true,
       bluetooth: false,
+      email: null,
     };
   },
   methods: {
@@ -140,6 +141,16 @@ export default {
   components: {
     News,
   },
+  created() {
+    var user = firebase.auth().currentUser;
+  name = user.displayName;
+  this.email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                   // this value to authenticate with your backend server, if
+                   // you have one. Use User.getToken() instead.
+}
 };
 </script>
 

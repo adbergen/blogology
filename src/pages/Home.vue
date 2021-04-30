@@ -55,7 +55,7 @@
               <q-item-label class="text-subtitle1">
                 <strong>Anthony Bergen</strong>
                 <span class="text-grey-7">
-                  @bergenphysique <br class="lt-md" />&bull;
+                  {{ email }} <br class="lt-md" />&bull;
                   {{ post.date | relativeDate }}
                 </span>
               </q-item-label>
@@ -106,12 +106,13 @@
 <script>
 import db from "src/services/firebase/database";
 import { formatDistance } from "date-fns";
+import firebase from "firebase"
 
 export default {
   name: "PageIndex",
   data() {
     return {
-      newPostContent: "",
+      newPostContent: null,
       posts: [
         // {
         //   id: "ID1",
@@ -128,6 +129,7 @@ export default {
         //   liked: true
         // }
       ],
+      email: null,
     };
   },
   methods: {
@@ -148,7 +150,7 @@ export default {
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
-      this.newPostContent = "";
+      this.newPostContent = null;
     },
     deletePost(post) {
       db.collection("posts")
@@ -199,9 +201,11 @@ export default {
     db.collection("posts")
       .orderBy("date")
       .onSnapshot((snapshot) => {
+        
         snapshot.docChanges().forEach((change) => {
           let postChange = change.doc.data();
           postChange.id = change.doc.id;
+          
           if (change.type === "added") {
             console.log("New post: ", postChange);
             this.posts.unshift(postChange);
@@ -223,7 +227,17 @@ export default {
         });
       });
   },
-};
+  created() {
+    var user = firebase.auth().currentUser;
+  name = user.displayName;
+  this.email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                   // this value to authenticate with your backend server, if
+                   // you have one. Use User.getToken() instead.
+}
+  }
 </script>
 
 <style lang="sass">

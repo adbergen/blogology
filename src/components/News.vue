@@ -54,13 +54,13 @@ export default {
   props: ["apiKey"],
   data: () => {
     return {
-      apiUrl: "",
+      apiUrl: null,
       isBusy: false,
       showloader: false,
       currentPage: 1,
       totalResults: 0,
       maxPerPage: 20,
-      searchword: "",
+      searchword: null,
       articles: [],
       country: "us",
     };
@@ -103,7 +103,7 @@ export default {
         "&apiKey=" +
         this.apiKey;
       this.isBusy = true;
-      this.searchword = "";
+      this.searchword = null;
 
       this.resetData();
       this.fetchData();
