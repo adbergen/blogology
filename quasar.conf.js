@@ -115,7 +115,7 @@ module.exports = function (ctx) {
       manifest: {
         name: `Blogology`,
         short_name: `Blogology`,
-        description: `A multiplatform  blog application`,
+        description: `A multiplatform blog application`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

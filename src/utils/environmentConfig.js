@@ -7,9 +7,6 @@ const ENV = require('dotenv').config().parsed
 */
 
 module.exports = (QENV) => {
-  if (!['DEV', 'STAGE', 'PROD'].includes(QENV)) {
-    throw Error('Unknonw or not supplied environment variable')
-  }
   return {
     FIREBASE_CONFIG: {
       apiKey: ENV[`${QENV}_API_KEY`],
