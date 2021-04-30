@@ -74,7 +74,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { QSpinnerGears } from 'quasar'
 export default {
   name: 'Auth',
   computed: {
