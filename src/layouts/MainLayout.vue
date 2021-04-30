@@ -55,7 +55,7 @@
             />
           </q-avatar>
           <strong>Anthony Bergen</strong>
-          <span> {{ email }} <br class="lt-md" /></span>
+          <span> {{ username }} <br class="lt-md" /></span>
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column">
@@ -122,7 +122,7 @@ export default {
       apiKey: process.env.VUE_APP_APIKEY,
       mobileData: true,
       bluetooth: false,
-      email: null,
+      username: null,
     };
   },
   methods: {
@@ -145,6 +145,9 @@ export default {
     var user = firebase.auth().currentUser;
   name = user.displayName;
   this.email = user.email;
+  this.username = "@" + this.email.split('@')[0]
+
+
   photoUrl = user.photoURL;
   emailVerified = user.emailVerified;
   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use

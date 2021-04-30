@@ -55,7 +55,7 @@
               <q-item-label class="text-subtitle1">
                 <strong>Anthony Bergen</strong>
                 <span class="text-grey-7">
-                  {{ email }} <br class="lt-md" />&bull;
+                  {{ username }} <br class="lt-md" />&bull;
                   {{ post.date | relativeDate }}
                 </span>
               </q-item-label>
@@ -129,7 +129,7 @@ export default {
         //   liked: true
         // }
       ],
-      email: null,
+      username: null,
     };
   },
   methods: {
@@ -231,6 +231,7 @@ export default {
     var user = firebase.auth().currentUser;
   name = user.displayName;
   this.email = user.email;
+  this.username = "@" + this.email.split('@')[0]
   photoUrl = user.photoURL;
   emailVerified = user.emailVerified;
   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
