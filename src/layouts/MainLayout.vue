@@ -48,7 +48,7 @@
       </q-list>
 
       <div class="q-pa-md absolute-bottom">
-        <q-btn v-if="isLoggedIn == false">
+        <q-btn v-if="username">
           <q-avatar class="absolute-left q-mt-xs q-ml-xs" size="xl">
             <img
               src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
@@ -141,7 +141,7 @@ export default {
   components: {
     News,
   },
-  created() {
+  created: function() {
     var user = firebase.auth().currentUser;
   name = user.displayName;
   this.email = user.email;
