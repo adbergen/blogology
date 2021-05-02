@@ -32,6 +32,38 @@ const routes = [
               }
           },
           {
+            path: '/messenger',
+            name: 'Messenger',
+            component: () => import('pages/Messenger.vue'),
+            meta: {
+                requiresAuth: true
+              }
+          },
+          {
+            path: '/notifications',
+            name: 'Notifications',
+            component: () => import('pages/Notifications.vue'),
+            meta: {
+                requiresAuth: true
+              }
+          },
+          {
+            path: '/friends',
+            name: 'Friends',
+            component: () => import('pages/Friends.vue'),
+            meta: {
+                requiresAuth: true
+              }
+          },
+          {
+            path: '/photos',
+            name: 'Photos',
+            component: () => import('pages/Photos.vue'),
+            meta: {
+                requiresAuth: true
+              }
+          },
+          {
             path: '/edit-profile',
             name: 'EditProfile',
             component: () => import('pages/EditProfile.vue'),

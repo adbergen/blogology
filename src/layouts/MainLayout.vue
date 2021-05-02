@@ -34,6 +34,34 @@
 
           <q-item-section class="text-h6 text-weight-bold">Feed</q-item-section>
         </q-item>
+        <q-item to="/messenger" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="messenger" size="md" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Messenger</q-item-section>
+        </q-item>
+        <q-item to="/notifications" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="notifications" size="md" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Notifications</q-item-section>
+        </q-item>
+        <q-item to="/friends" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="people" size="md" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Friends</q-item-section>
+        </q-item>
+        <q-item to="/photos" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="photo" size="md" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Photos</q-item-section>
+        </q-item>
         <q-item to="/about" clickable v-ripple exact>
           <q-item-section avatar>
             <q-icon name="psychology" size="md" />
