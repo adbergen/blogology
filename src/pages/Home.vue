@@ -42,7 +42,7 @@
           enter-active-class="animated fadeIn slow"
           leave-active-class="animated fadeOut slow"
         >
-          <q-item class="post q-py-md" v-for="post in posts" :key="post.id">
+          <q-item class="post q-py-md" v-for="post in posts" v-bind:key="post.id">
             <q-item-section avatar top>
               <q-avatar size="xl">
                 <img
@@ -131,6 +131,7 @@ export default {
         // }
       ],
       username: null,
+      uid: null,
     };
   },
   methods: {
@@ -200,7 +201,7 @@ export default {
     },
   },
   mounted() {
-    db.collection("posts")
+    db.collection("posts").where("uid", "==", firebase.auth().currentUser.uid)
       .orderBy("date")
       .onSnapshot((snapshot) => {
         

@@ -48,7 +48,7 @@
       </q-list>
 
       <div class="q-pa-md absolute-bottom">
-        <q-btn v-if="username">
+        <q-btn v-if="uid">
           <q-avatar class="absolute-left q-mt-xs q-ml-xs" size="xl">
             <img
               src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
@@ -112,17 +112,18 @@
 <script>
 import firebase from "firebase";
 import News from "../components/News";
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
       left: false,
       right: false,
       isLoggedIn: false,
-      currentUser: false,
       apiKey: process.env.VUE_APP_APIKEY,
       mobileData: true,
       bluetooth: false,
       username: null,
+      uid: this.$store.state.auth.uid,
     };
   },
   methods: {
@@ -141,15 +142,18 @@ export default {
   components: {
     News,
   },
-  created: function() {
+  created () {
     var user = firebase.auth().currentUser;
   this.email = user.email;
   this.username = "@" + this.email.split('@')[0]
  // The user's ID, unique to the Firebase project. Do NOT use
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
-}
-};
+},
+computed: {
+    ...mapGetters('user', ['currentUser']),
+  },
+  }
 </script>
 
 <style lang="sass">
