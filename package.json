@@ -14,7 +14,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.10.4",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cordova": "^10.0.0",
@@ -23,11 +23,11 @@
     "date-fns": "^2.19.0",
     "express": "^4.17.1",
     "firebase": "^8.4.2",
-    "quasar": "^1.0.0",
+    "quasar": "^1.15.12",
     "vuexfire": "^3.2.5"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0",
+    "@quasar/app": "^2.2.5",
     "@quasar/quasar-app-extension-dotenv": "^1.1.0",
     "babel-eslint": "^10.0.1",
     "devtron": "^1.4.0",

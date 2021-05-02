@@ -22,49 +22,49 @@
       <q-list>
         <q-item to="/home" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="home" size="md" />
+            <q-icon name="o_home" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Home</q-item-section>
         </q-item>
         <q-item to="/feed" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="feed" size="md" />
+            <q-icon name="o_feed" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Feed</q-item-section>
         </q-item>
         <q-item to="/messenger" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="messenger" size="md" />
+            <q-icon name="o_message" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Messenger</q-item-section>
         </q-item>
         <q-item to="/notifications" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="notifications" size="md" />
+            <q-icon name="o_notifications" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Notifications</q-item-section>
         </q-item>
         <q-item to="/friends" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="people" size="md" />
+            <q-icon name="o_people" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Friends</q-item-section>
         </q-item>
         <q-item to="/photos" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="photo" size="md" />
+            <q-icon name="o_photo" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold">Photos</q-item-section>
         </q-item>
         <q-item to="/about" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="psychology" size="md" />
+            <q-icon name="o_info" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold"
@@ -73,7 +73,7 @@
         </q-item>
         <q-item to="/" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon name="login" size="md" />
+            <q-icon name="o_login" size="md" />
           </q-item-section>
 
           <q-item-section class="text-h6 text-weight-bold"
