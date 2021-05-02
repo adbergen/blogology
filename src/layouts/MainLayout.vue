@@ -27,6 +27,13 @@
 
           <q-item-section class="text-h6 text-weight-bold">Home</q-item-section>
         </q-item>
+        <q-item to="/feed" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="feed" size="md" />
+          </q-item-section>
+
+          <q-item-section class="text-h6 text-weight-bold">Feed</q-item-section>
+        </q-item>
         <q-item to="/about" clickable v-ripple exact>
           <q-item-section avatar>
             <q-icon name="psychology" size="md" />

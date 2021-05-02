@@ -24,6 +24,14 @@ const routes = [
               }
           },
           {
+            path: '/feed',
+            name: 'Feed',
+            component: () => import('pages/Feed.vue'),
+            meta: {
+                requiresAuth: true
+              }
+          },
+          {
             path: '/edit-profile',
             name: 'EditProfile',
             component: () => import('pages/EditProfile.vue'),
