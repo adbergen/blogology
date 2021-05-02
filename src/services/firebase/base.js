@@ -64,7 +64,8 @@ export const handleOnAuthStateChanged = async (store, currentUser) => {
   store.commit('auth/setAuthState', {
     isAuthenticated: currentUser !== null,
     isReady: true,
-    uid: (currentUser ? currentUser.uid : '')
+    uid: (currentUser ? currentUser.uid : ''),
+    email: (currentUser ? currentUser.email : '')
   })
 
   // Get & bind the current user

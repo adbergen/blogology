@@ -55,7 +55,7 @@
               <q-item-label class="text-subtitle1">
                 <strong>Anthony Bergen</strong>
                 <span class="text-grey-7">
-                  {{ username }} <br class="lt-md" />&bull;
+                  {{ post.postedBy }} <br class="lt-md" />&bull;
                   {{ post.date | relativeDate }}
                 </span>
               </q-item-label>
@@ -130,8 +130,8 @@ export default {
         //   liked: true
         // }
       ],
-      username: null,
       uid: null,
+      postedBy: null,
     };
   },
   methods: {
@@ -141,7 +141,8 @@ export default {
         date: Date.now(),
         liked: false,
         reposted: false,
-        uid: this.$store.state.auth.uid
+        uid: this.$store.state.auth.uid,
+        postedBy: this.username
       };
       // this.posts.unshift(newPost);
       // Add a new document with a generated id.
@@ -234,7 +235,7 @@ export default {
     console.log('FIREBASE AUTH USER uid', this.$store.state.auth.uid)
     var user = firebase.auth().currentUser;
   this.email = user.email;
-  this.username = "@" + this.email.split('@')[0]
+  this.username = "@" + this.$store.state.auth.email.split('@')[0]
     // The user's ID, unique to the Firebase project. Do NOT use
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
