@@ -143,14 +143,9 @@ export default {
   },
   created: function() {
     var user = firebase.auth().currentUser;
-  name = user.displayName;
   this.email = user.email;
   this.username = "@" + this.email.split('@')[0]
-
-
-  photoUrl = user.photoURL;
-  emailVerified = user.emailVerified;
-  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+ // The user's ID, unique to the Firebase project. Do NOT use
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
 }

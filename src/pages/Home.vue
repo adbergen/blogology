@@ -107,6 +107,7 @@
 import db from "src/services/firebase/database";
 import { formatDistance } from "date-fns";
 import firebase from "firebase"
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: "PageIndex",
@@ -139,6 +140,7 @@ export default {
         date: Date.now(),
         liked: false,
         reposted: false,
+        uid: this.$store.state.auth.uid
       };
       // this.posts.unshift(newPost);
       // Add a new document with a generated id.
@@ -227,17 +229,18 @@ export default {
         });
       });
   },
-  created() {
+  created () {
+    console.log('FIREBASE AUTH USER uid', this.$store.state.auth.uid)
     var user = firebase.auth().currentUser;
-  name = user.displayName;
   this.email = user.email;
   this.username = "@" + this.email.split('@')[0]
-  photoUrl = user.photoURL;
-  emailVerified = user.emailVerified;
-  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+    // The user's ID, unique to the Firebase project. Do NOT use
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
-}
+},
+computed: {
+    ...mapGetters('user', ['currentUser']),
+  },
   }
 </script>
 

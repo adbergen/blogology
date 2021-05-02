@@ -6,4 +6,3 @@ import "firebase/firestore";
 let db = firebase.firestore();
 
 export default db;
-

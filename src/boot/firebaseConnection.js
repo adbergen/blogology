@@ -1,6 +1,6 @@
 import firebaseServices from '../services/firebase'
 
-export default ({ router, store, Vue }) => {
+export default ({ store, Vue }) => {
   firebaseServices.fBInit(process.env.QENV.FIREBASE_CONFIG)
 
   // Tell the application what to do when the
@@ -14,4 +14,3 @@ export default ({ router, store, Vue }) => {
   Vue.prototype.$fb = firebaseServices
   store.$fb = firebaseServices
 }
-

@@ -18,19 +18,19 @@ export default function (/* { store, ssrContext } */) {
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
 
-    // Leave these as is and change from quasar.conf.js instead!
+    // Leave these as they are and change in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
   })
 
-  // Setup the router to be intercepted on each route.
-  // This allows the application to halt rendering until
-  // Firebase is finished with its initialization process,
-  // and handle the user accordingly
+  // Navigational Guards
   Router.beforeEach(async (to, from, next) => {
-    const { ensureAuthIsInitialized, isAuthenticated } = firebaseServices
+    const {
+      ensureAuthIsInitialized,
+      isAuthenticated
+    } = firebaseServices
     try {
       // Force the app to wait until Firebase has
       // finished its initialization, and handle the
@@ -44,7 +44,7 @@ export default function (/* { store, ssrContext } */) {
         }
       } else if ((to.path === '/auth/register' && isAuthenticated(store)) ||
         (to.path === '/auth/login' && isAuthenticated(store))) {
-        next('/user')
+        next('/user/profile')
       } else {
         next()
       }

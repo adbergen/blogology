@@ -5,7 +5,9 @@
  * @param data.isAuthenticated - Boolean value from:
  * src/services/firebase/base > handleOnAuthStateChanged
  */
+  
  export function setAuthState (state, data) {
-    state.isAuthenticated = data.isAuthenticated
-    state.isReady = data.isReady
-  }
+  state.isAuthenticated = data.isAuthenticated
+  state.isReady = data.isReady
+  state.uid = data.uid
+}
