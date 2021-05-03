@@ -12,6 +12,7 @@
             maxlength="280"
             class="new-post"
           >
+          
             <template v-slot:before>
               <q-avatar size="xl">
                 <img

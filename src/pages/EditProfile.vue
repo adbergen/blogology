@@ -72,7 +72,8 @@
                     dense
                     outlined
                     round
-                    v-model="userDetails.username"
+                    v-model="username"
+                    placeholder="Username"
                     name="username"
                     :rules="[val => !!val || 'User Name is required']"
                     
@@ -89,11 +90,11 @@
                     dense
                     outlined
                     round
-                    v-model="details.name"
+                    v-model="name"
                     placeholder="First Name"
                     name="firstName"
                     :rules="[val => !!val || 'First Name is required']"
-                    :class="details.name.length === 0 ? 'empty' : ''"
+                    :class="name.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -107,11 +108,11 @@
                     dense
                     outlined
                     round
-                    v-model="details.lastName"
+                    v-model="lastName"
                     placeholder="Last Name"
                     name="lastName"
                     :rules="[val => !!val || 'Last Name is required']"
-                    :class="details.lastName.length === 0 ? 'empty' : ''"
+                    :class="lastName.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -125,7 +126,7 @@
                     dense
                     outlined
                     round
-                    v-model="userDetails.email"
+                    v-model="email"
                     placeholder="Email Address"
                     name="email"
                     :rules="[val => !!val || 'Field is required']"
@@ -144,11 +145,11 @@
                     dense
                     outlined
                     round
-                    v-model="userDetails.phoneNumber"
+                    v-model="phoneNumber"
                     type="tel"
                     placeholder="Phone number"
                     name="phoneNumber"
-                    :class="details.phoneNumber.length === 0 ? 'empty' : ''"
+                    :class="phoneNumber.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -163,10 +164,10 @@
                     dense
                     outlined
                     round
-                    v-model="details.country"
+                    v-model="country"
                     placeholder="Country"
                     name="country"
-                    :class="details.country.length === 0 ? 'empty' : ''"
+                    :class="country.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -181,10 +182,10 @@
                     dense
                     outlined
                     round
-                    v-model="details.address"
+                    v-model="address"
                     placeholder="Street Address"
                     name="address"
-                    :class="details.address.length === 0 ? 'empty' : ''"
+                    :class="address.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -202,7 +203,7 @@
                     v-model="userDetails.apartmentNumber"
                     placeholder="Apartment Number"
                     name="apartmentNumber"
-                    :class="details.apartmentNumber.length === 0 ? 'empty' : ''"
+                    :class="apartmentNumber.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -217,10 +218,10 @@
                     dense
                     outlined
                     round
-                    v-model="details.city"
+                    v-model="city"
                     placeholder="City"
                     name="city"
-                    :class="details.city.length === 0 ? 'empty' : ''"
+                    :class="city.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -234,10 +235,10 @@
                     dense
                     outlined
                     round
-                    v-model="details.state"
+                    v-model="state"
                     placeholder="State"
                     name="state"
-                    :class="details.state.length === 0 ? 'empty' : ''"
+                    :class="state.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -251,10 +252,10 @@
                     dense
                     outlined
                     round
-                    v-model="details.zip"
+                    v-model="zip"
                     placeholder="Zip Code"
                     name="zip"
-                    :class="details.zip.length === 0 ? 'empty' : ''"
+                    :class="zip.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -271,7 +272,7 @@
               class="text-white icon-none "
               style=" background-color: rgb(26, 140, 193);"
               no-caps
-              @click="handleSubmit"
+              @click="updateProfile"
             />
           </q-card-actions>
         </div>
@@ -358,6 +359,11 @@
 </template>
 
 <script>
+import db from "src/services/firebase/database";
+import { formatDistance } from "date-fns";
+import firebase from "firebase"
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'UserProfile',
   data () {
@@ -371,7 +377,6 @@ export default {
         confirmNewPassword: ''
       },
       componentKey: 0,
-      details: {
         name: '',
         lastName: '',
         phoneNumber: '',
@@ -381,21 +386,33 @@ export default {
         city: '',
         state: '',
         zip: ''
-      }
     }
   },
   methods: {
     handleBlur (e) {
-      this.handleSubmit()
+      this.updateProfile()
     },
-    handleSubmit () {
-      this.$api.put(`/user/${this.userDetails.id}`, this.userDetails)
-        .then(response => {
-          this.debug('response', response)
-        })
-        .catch(response => {
-          this.debug('response', response)
-        })
+    updateProfile () {
+      let newInfo = {
+        name: this.name,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
+        apartmentNumber: this.apartmentNumber,
+        country: this.country,
+        address: this.address,
+        city: this.city,
+        state: this.state,
+        zip: this.zip,
+        date: Date.now(),
+        uid: this.$store.state.auth.uid,
+        username: this.username
+      };
+      db.collection("users").doc(this.$store.state.auth.uid,)
+        .set(newInfo)
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
+      
     },
     onPickFile () {
       this.$refs.fileInput.click()
@@ -442,6 +459,21 @@ export default {
         this.$q.notify({ type: 'negative', message: error.response.data.data[0].messages[0].message })
       })
     }
+  },
+   mounted() {
+    
+  },
+created () {
+    console.log('FIREBASE AUTH USER uid', this.$store.state.auth.uid)
+    var user = firebase.auth().currentUser;
+  this.email = user.email;
+  this.username = "@" + this.$store.state.auth.email.split('@')[0]
+    // The user's ID, unique to the Firebase project. Do NOT use
+                   // this value to authenticate with your backend server, if
+                   // you have one. Use User.getToken() instead.
+},
+computed: {
+    ...mapGetters('user', ['currentUser']),
   },
   // beforeMount () {
   //   this.userDetails = (({ username, id, name, lastName, email, phoneNumber, address, apartmentNumber, city, state, country, zip, photo }) => ({ username, id, name, lastName, email, phoneNumber, address, apartmentNumber, city, state, country, zip, photo }))(this.$store.state.user)
