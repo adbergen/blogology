@@ -91,28 +91,10 @@
                     outlined
                     round
                     v-model="name"
-                    placeholder="First Name"
-                    name="firstName"
-                    :rules="[val => !!val || 'First Name is required']"
+                    placeholder="Name"
+                    name="Name"
+                    :rules="[val => !!val || 'Name is required']"
                     :class="name.length === 0 ? 'empty' : ''"
-                  />
-                </q-item-section>
-              </q-item>
-              <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <q-item-section>
-                  <div class="text-caption required-hint">
-                    Required*
-                  </div>
-                  <q-input
-                    @blur="handleBlur"
-                    dense
-                    outlined
-                    round
-                    v-model="lastName"
-                    placeholder="Last Name"
-                    name="lastName"
-                    :rules="[val => !!val || 'Last Name is required']"
-                    :class="lastName.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -164,98 +146,10 @@
                     dense
                     outlined
                     round
-                    v-model="country"
-                    placeholder="Country"
-                    name="country"
-                    :class="country.length === 0 ? 'empty' : ''"
-                  />
-                </q-item-section>
-              </q-item>
-
-              <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <q-item-section>
-                  <div class="text-caption optional-hint">
-                    Optional
-                  </div>
-                  <q-input
-                    @blur="handleBlur"
-                    dense
-                    outlined
-                    round
-                    v-model="address"
-                    placeholder="Street Address"
-                    name="address"
-                    :class="address.length === 0 ? 'empty' : ''"
-                  />
-                </q-item-section>
-              </q-item>
-
-              <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <q-item-section>
-                  <div class="text-caption optional-hint">
-                    Optional
-                  </div>
-                  <q-input
-                    @blur="handleBlur"
-                    dense
-                    outlined
-                    round
-                    v-model="userDetails.apartmentNumber"
-                    placeholder="Apartment Number"
-                    name="apartmentNumber"
-                    :class="apartmentNumber.length === 0 ? 'empty' : ''"
-                  />
-                </q-item-section>
-              </q-item>
-
-              <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <q-item-section>
-                  <div class="text-caption optional-hint">
-                    Optional
-                  </div>
-                  <q-input
-                    @blur="handleBlur"
-                    dense
-                    outlined
-                    round
-                    v-model="city"
-                    placeholder="City"
-                    name="city"
-                    :class="city.length === 0 ? 'empty' : ''"
-                  />
-                </q-item-section>
-              </q-item>
-              <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <q-item-section>
-                  <div class="text-caption optional-hint">
-                    Optional
-                  </div>
-                  <q-input
-                    @blur="handleBlur"
-                    dense
-                    outlined
-                    round
-                    v-model="state"
-                    placeholder="State"
-                    name="state"
-                    :class="state.length === 0 ? 'empty' : ''"
-                  />
-                </q-item-section>
-              </q-item>
-              <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <q-item-section>
-                  <div class="text-caption optional-hint">
-                    Optional
-                  </div>
-                  <q-input
-                    @blur="handleBlur"
-                    dense
-                    outlined
-                    round
-                    v-model="zip"
-                    placeholder="Zip Code"
-                    name="zip"
-                    :class="zip.length === 0 ? 'empty' : ''"
+                    v-model="location"
+                    placeholder="Location"
+                    name="location"
+                    :class="location.length === 0 ? 'empty' : ''"
                   />
                 </q-item-section>
               </q-item>
@@ -377,15 +271,11 @@ export default {
         confirmNewPassword: ''
       },
       componentKey: 0,
+        username: '',
         name: '',
-        lastName: '',
+        email: '',
         phoneNumber: '',
-        apartmentNumber: '',
-        country: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: ''
+        location: '',
     }
   },
   methods: {
@@ -395,14 +285,9 @@ export default {
     updateProfile () {
       let newInfo = {
         name: this.name,
-        lastName: this.lastName,
+        email: this.email,
         phoneNumber: this.phoneNumber,
-        apartmentNumber: this.apartmentNumber,
-        country: this.country,
-        address: this.address,
-        city: this.city,
-        state: this.state,
-        zip: this.zip,
+        location: this.location,
         date: Date.now(),
         uid: this.$store.state.auth.uid,
         username: this.username
