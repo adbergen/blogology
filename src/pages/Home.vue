@@ -3,36 +3,29 @@
     <q-scroll-area class="absolute full-width full-height">
       <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
         <div class="col">
-          <q-input
-            bottom-slots
-            v-model="newPostContent"
-            label="What's Happening?"
-            counter
-            autogrow
-            maxlength="280"
-            class="new-post"
-          >
-            <template v-slot:before>
+          <q-item>
+            <q-item-section avatar>
               <q-avatar size="xl">
                 <img
                   src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
                 />
               </q-avatar>
-            </template>
-          </q-input>
+            </q-item-section>
+
+            <q-item-section class="text-center">
+              <q-item-label
+                ><strong>{{ currentUser.name }}</strong></q-item-label
+              >
+              <q-item-label caption
+                ><strong>{{ currentUser.username }}</strong></q-item-label
+              >
+              <q-item-label
+                ><strong>{{ currentUser.location }}</strong></q-item-label
+              >
+            </q-item-section>
+          </q-item>
         </div>
-        <div class="col col-shrink">
-          <q-btn
-            @click="addNewPost"
-            class="q-mb-lg"
-            unelevated
-            rounded
-            no-caps
-            :disable="!newPostContent"
-            color="primary"
-            label="Post"
-          />
-        </div>
+        <div class="col col-shrink"></div>
       </div>
       <q-separator class="divider" size="10px" color="grey-2" />
 
@@ -42,7 +35,11 @@
           enter-active-class="animated fadeIn slow"
           leave-active-class="animated fadeOut slow"
         >
-          <q-item class="post q-py-md" v-for="post in posts" v-bind:key="post.id">
+          <q-item
+            class="post q-py-md"
+            v-for="post in posts"
+            v-bind:key="post.id"
+          >
             <q-item-section avatar top>
               <q-avatar size="xl">
                 <img
@@ -106,8 +103,8 @@
 <script>
 import db from "src/services/firebase/database";
 import { formatDistance } from "date-fns";
-import firebase from "firebase"
-import { mapGetters, mapActions } from 'vuex'
+import firebase from "firebase";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "PageIndex",
@@ -142,7 +139,7 @@ export default {
         liked: false,
         reposted: false,
         uid: this.$store.state.auth.uid,
-        postedBy: this.username
+        postedBy: this.username,
       };
       // this.posts.unshift(newPost);
       // Add a new document with a generated id.
@@ -202,14 +199,14 @@ export default {
     },
   },
   mounted() {
-    db.collection("posts").where("uid", "==", firebase.auth().currentUser.uid)
+    db.collection("posts")
+      .where("uid", "==", firebase.auth().currentUser.uid)
       .orderBy("date")
       .onSnapshot((snapshot) => {
-        
         snapshot.docChanges().forEach((change) => {
           let postChange = change.doc.data();
           postChange.id = change.doc.id;
-          
+
           if (change.type === "added") {
             console.log("New post: ", postChange);
             this.posts.unshift(postChange);
@@ -231,19 +228,19 @@ export default {
         });
       });
   },
-  created () {
-    console.log('FIREBASE AUTH USER uid', this.$store.state.auth.uid)
+  created() {
+    console.log("FIREBASE AUTH USER uid", this.$store.state.auth.uid);
     var user = firebase.auth().currentUser;
-  this.email = user.email;
-    this.username = "@" + this.$store.state.auth.email.split('@')[0]
+    this.email = user.email;
+    this.username = "@" + this.$store.state.auth.email.split("@")[0];
     // The user's ID, unique to the Firebase project. Do NOT use
-                   // this value to authenticate with your backend server, if
-                   // you have one. Use User.getToken() instead.
-},
-computed: {
-    ...mapGetters('user', ['currentUser']),
+    // this value to authenticate with your backend server, if
+    // you have one. Use User.getToken() instead.
   },
-  }
+  computed: {
+    ...mapGetters("user", ["currentUser"]),
+  },
+};
 </script>
 
 <style lang="sass">
