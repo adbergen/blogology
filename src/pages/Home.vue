@@ -8,14 +8,18 @@
               id="profile-image"
               src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
             />
-            <strong>{{ currentUser.username }}</strong>
-            <strong>{{ currentUser.name }}</strong>
-            <strong>{{ currentUser.location }}</strong>
           </q-item-section>
 
           <q-item-section>
-            <q-item-label style="max-width: 200px">
-              <strong>{{ currentUser.bio }}</strong></q-item-label
+            <strong><q-icon name="o_person" size="sm" />{{ currentUser.username }}</strong>
+            <strong><q-icon name="o_account_circle" size="sm" />{{ currentUser.name }}</strong>
+            <strong><q-icon name="o_location_on" size="sm" />{{ currentUser.location }}</strong>
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label style="max-width: 300px">
+              <strong>Bio: </strong>
+              {{ currentUser.bio }}</q-item-label
             ></q-item-section
           >
         </q-item>
