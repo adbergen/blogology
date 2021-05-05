@@ -1,107 +1,38 @@
 <template>
-  <q-page class="relative-position">
-    <q-scroll-area class="absolute full-width full-height">
-      <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
-        <div class="col">
-          <q-input
-            bottom-slots
-            v-model="newPostContent"
-            label="What's Happening?"
-            counter
-            autogrow
-            maxlength="280"
-            class="new-post"
-          >
-          
-            <template v-slot:before>
-              <q-avatar size="xl">
-                <img
-                  src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
-                />
-              </q-avatar>
-            </template>
-          </q-input>
-        </div>
-        <div class="col col-shrink">
-          <q-btn
-            @click="addNewPost"
-            class="q-mb-lg"
-            unelevated
-            rounded
-            no-caps
-            :disable="!newPostContent"
-            color="primary"
-            label="Post"
-          />
-        </div>
-      </div>
-      <q-separator class="divider" size="10px" color="grey-2" />
-
-      <q-list separator>
-        <transition-group
-          appear
-          enter-active-class="animated fadeIn slow"
-          leave-active-class="animated fadeOut slow"
-        >
-          <q-item class="post q-py-md" v-for="post in posts" v-bind:key="post.id">
-            <q-item-section avatar top>
-              <q-avatar size="xl">
-                <img
-                  src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
-                />
-              </q-avatar>
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label class="text-subtitle1">
-                <strong>Anthony Bergen</strong>
-                <span class="text-grey-7">
-                  {{ post.postedBy }} <br class="lt-md" />&bull;
-                  {{ post.date | relativeDate }}
-                </span>
-              </q-item-label>
-              <q-item-label class="post-content text-body1"
-                >{{ post.content }}
-              </q-item-label>
-              <div class="row justify-between q-mt-sm post-icons">
-                <q-btn
-                  flat
-                  round
-                  color="grey"
-                  size="sm"
-                  icon="far fa-comment"
-                />
-                <q-btn
-                  @click="toggleReposted(post)"
-                  flat
-                  round
-                  :color="post.reposted ? 'green' : 'grey'"
-                  size="sm"
-                  icon="fas fa-retweet"
-                />
-                <q-btn
-                  @click="toggleLiked(post)"
-                  :color="post.liked ? 'pink' : 'grey'"
-                  :icon="post.liked ? 'fas fa-heart' : 'far fa-heart'"
-                  size="sm"
-                  flat
-                  round
-                />
-                <q-btn
-                  @click="deletePost(post)"
-                  flat
-                  round
-                  color="grey"
-                  size="sm"
-                  icon="fas fa-trash"
-                />
-              </div>
-            </q-item-section>
-          </q-item>
-        </transition-group>
-      </q-list>
-    </q-scroll-area>
-  </q-page>
+  <div class="q-pa-md row justify-center">
+    <div style="width: 100%; max-width: 400px">
+      <q-chat-message
+        name="me"
+        avatar="https://cdn.quasar.dev/img/avatar3.jpg"
+        :text="['hey, how are you?']"
+        stamp="7 minutes ago"
+        sent
+        bg-color="amber-7"
+        
+      />
+      <q-chat-message
+        name="Jane"
+        avatar="https://cdn.quasar.dev/img/avatar5.jpg"
+        :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALLY long message to annoy you...'
+        ]"
+        size="12"
+        stamp="4 minutes ago"
+        text-color="white"
+        bg-color="primary"
+      />
+      <q-chat-message
+        name="Jane"
+        avatar="https://cdn.quasar.dev/img/avatar5.jpg"
+        :text="['Did it work?']"
+        stamp="1 minutes ago"
+        size="12"
+        text-color="white"
+        bg-color="primary"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -116,20 +47,6 @@ export default {
     return {
       newPostContent: null,
       posts: [
-        // {
-        //   id: "ID1",
-        //   content:
-        //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
-        //   date: 1615051570957,
-        //   liked: false
-        // },
-        // {
-        //   id: "ID2",
-        //   content:
-        //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eadistinctio dolore dolorem? Nostrum explicabo deserunt repudiandae,id earum pariatur. Eum aliquid autem modi architecto in labore dignissimos id quod? Incidunt!",
-        //   date: 1615051570957,
-        //   liked: true
-        // }
       ],
       uid: null,
       postedBy: null,

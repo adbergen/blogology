@@ -11,9 +11,21 @@
           </q-item-section>
 
           <q-item-section>
-            <strong><q-icon name="o_person" size="sm" />{{ currentUser.username }}</strong>
-            <strong><q-icon name="o_account_circle" size="sm" />{{ currentUser.name }}</strong>
-            <strong><q-icon name="o_location_on" size="sm" />{{ currentUser.location }}</strong>
+            <strong
+              ><q-icon name="o_person" size="sm" />{{
+                currentUser.username
+              }}</strong
+            >
+            <strong
+              ><q-icon name="o_account_circle" size="sm" />{{
+                currentUser.name
+              }}</strong
+            >
+            <strong
+              ><q-icon name="o_location_on" size="sm" />{{
+                currentUser.location
+              }}</strong
+            >
           </q-item-section>
 
           <q-item-section>
