@@ -2,29 +2,24 @@
   <q-page class="relative-position">
     <q-scroll-area class="absolute full-width full-height">
       <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
-        <div class="col">
-          <q-item>
-            <q-item-section avatar>
-              <q-avatar size="xl">
-                <img
-                  src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
-                />
-              </q-avatar>
-            </q-item-section>
+        <q-item>
+          <q-item-section avatar>
+            <img
+              id="profile-image"
+              src="https://en.gravatar.com/userimage/202821422/a87e067304889e88293c27db83cba1e3.jpeg"
+            />
+            <strong>{{ currentUser.username }}</strong>
+            <strong>{{ currentUser.name }}</strong>
+            <strong>{{ currentUser.location }}</strong>
+          </q-item-section>
 
-            <q-item-section class="text-center">
-              <q-item-label
-                ><strong>{{ currentUser.name }}</strong></q-item-label
-              >
-              <q-item-label caption
-                ><strong>{{ currentUser.username }}</strong></q-item-label
-              >
-              <q-item-label
-                ><strong>{{ currentUser.location }}</strong></q-item-label
-              >
-            </q-item-section>
-          </q-item>
-        </div>
+          <q-item-section>
+            <q-item-label style="max-width: 200px">
+              <strong>{{ currentUser.bio }}</strong></q-item-label
+            ></q-item-section
+          >
+        </q-item>
+
         <div class="col col-shrink"></div>
       </div>
       <q-separator class="divider" size="10px" color="grey-2" />
@@ -244,6 +239,9 @@ export default {
 </script>
 
 <style lang="sass">
+#profile-image
+  border-radius: 50%
+  border: 3px solid black
 .new-post
   textarea
     font-size: 19px
